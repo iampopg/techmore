@@ -1,0 +1,187 @@
+{% extends "main.html" %}
+
+{% block title %} My profile {% endblock title%}
+
+{% block body_content %}
+<div>
+    <div class='row'>
+      <div class='col-3'></div>
+      <div class='col-md-6 col-12 col-offset-3'>
+        <p>
+            <span class="data text-pink text-size-30px mt-5">
+                {% if message %}
+                {% for message in message %}
+                    {{message}}
+                {% endfor %}
+                {% endif %}
+            </span>
+        </p>
+            {% if profile %}
+
+                {% for profile in profile %}
+                    <div class="card">
+                        <header class="card-header">
+                        <p class="card-header-title">
+                            <span class="icon"><i class="mdi mdi-account"></i></span>
+                            {{profile.user.username}}
+                        </p>
+                        </header>
+
+                        <div class="card-content">
+                        {% if profile.profile_photo %}
+                            <div class="image w-48 h-60 mx-auto">
+                                <img src="{{profile.profile_photo.url}}" style="width: 300px; height:300px" alt="{{profile.user.username}}" class="rounded-full">
+                            </div>
+                        {% else %}
+                            <div class="image w-30 h-10 mx-auto">
+                            <img src="https://avatars.dicebear.com/v2/initials/{{profile.user.username}}" alt="{{profile.user.username}}" class="rounded-full">
+                            </div>
+                        {% endif %}
+                    <hr>
+                    <div class="field">
+                        <label class="label">Name</label>
+                        <div class="control">
+                        <input type="text" readonly value="{{profile.user.first_name}} {{profile.user.last_name}}" class="input is-static">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="field">
+                        <label class="label">E-mail</label>
+                        <div class="control">
+                        <input type="text" readonly value="{{profile.user.email}}" class="input is-static">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="field">
+                        <label class="label">Phone</label>
+                        <div class="control">
+                        <input type="text" readonly value="{{profile.phone_number}}" class="input is-static">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="field">
+                        <label class="label">Date of birth</label>
+                        <div class="control">
+                        <input type="text" readonly value="{{profile.DOB}}" class="input is-static">
+                        </div>
+                    </div>
+                    <hr>
+                    {% comment %} <div class="field">
+                        <label class="label">Marital status</label>
+                        <div class="control">
+                        <input type="text" readonly value="{{profile.marital_status}}" class="input is-static">
+                        </div>
+                    </div> {% endcomment %}
+                    <hr>
+                    <div class="field">
+                        <label class="label">Adress</label>
+                        <div class="control">
+                        <input type="text" readonly value="{{profile.address}}" class="input is-static">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="field">
+                        <label class="label">PURPOSE</label>
+                        <div class="control">
+                        <input type="text" readonly value="{{profile.purpose}}" class="input is-static">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="field">
+                        <label class="label">IDEA</label>
+                        <div class="control">
+                        <input type="text" readonly value="{{profile.idea_type}}" class="input is-static">
+                        </div>
+                    </div>
+                    <hr>
+                    {% if request.user.is_staff %}
+                    {% comment %} <div class="field">
+                        <label class="label">Position</label>
+                        <div class="control">
+                        <input type="text" readonly value="{{profile.position}}" class="input is-static">
+                        </div>
+                    </div> {% endcomment %}
+                    <hr>
+                    <div class="field">
+                        <label class="label">Department</label>
+                        <div class="control">
+                        <input type="text" readonly value="{{profile.department}}" class="input is-static">
+                        </div>
+                    </div>
+                    {% comment %} <hr>
+                    {% if profile.particulars %}
+                        <div class="field">
+                            <label class="label">Particulars</label>
+                            <div class="control">
+                            <input type="text" readonly value="{{profile.particulars}}" class="input is-static">
+                            </div>
+                        </div>
+                        <hr>
+                    {% endif %} {% endcomment %}
+                    {% comment %} {% if profile.means_of_identity %}
+                        <div class="field">
+                            <label class="label">Means of Identity</label>
+                            <div class="control">
+                            <input type="text" readonly value="{{profile.means_of_identity}}" class="input is-static">
+                            </div>
+                        </div>
+                        <hr>
+                    {% endif %} {% endcomment %}
+                    <div class="field">
+                        <label class="label">Staff ID</label>
+                        <div class="control">
+                        <input type="text" readonly value="HSTP0{{profile.user_id}}" class="input is-static">
+                        </div>
+                    </div>
+                    <hr>
+                    {% endif %}
+                    <div class="field">
+                        <label class="label">Status</label>
+                        {% if profile.user.is_active == True %}
+                        <div class="control">
+                            <input type="text" readonly value="Active" class="input is-static">
+                            </div>
+                        {% else %}
+                        <div class="control">
+                            <input type="text" readonly value="Inactive" class="input is-static">
+                            </div>
+                        {% endif %}
+                        
+                    </div>
+                    <hr>
+                    <div class="field">
+                        <div class="control">
+                            <a href="{% url "update_profile" profile.user_id %}">
+                                <button type="submit" class="button green">
+                                    Update Profile
+                                </button>
+                            </a>
+                            
+                        {% if request.user.is_superuser %}
+                            <a href="{% url "deactivate_profile" profile.user_id %}">
+                                <button type="submit" class="button red">
+                                    {% if profile.user.is_active == 1 %}
+                                        Deactivate
+                                    {% else %}
+                                        Activate
+                                    {% endif %}
+                            </button>
+                            </a>
+                           
+                        </div>
+                        </div>
+                    {% endif %}
+                    </div>
+                </div>
+                </div>
+
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+      </div>
+      </div>
+      <div class='col-3'></div> 
+    </div>
+</div>
+{% endblock body_content %}
