@@ -6,7 +6,6 @@ django-bootstrap-form==3.4
 
 Pillow==9.3.0
 pypiwin32==223
-pyttsx3==2.90
 pywin32==305
 sqlparse==0.4.3
 tzdata==2022.6
