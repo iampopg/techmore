@@ -40,7 +40,7 @@ def messageView(request):
             send_mail(
                 "TECHMORE",
                 f"""dear {first_name},Your message has being received, your will get a responce from us within 24hrs, Thanks for your time.
-                You can also call us at +2348135729554""",
+                You can also call us """,
                 'techmoredev@gmail.com', #from emal (sender)
                 (email,), #to email
                 fail_silently=False,)
