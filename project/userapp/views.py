@@ -23,7 +23,7 @@ class SignUpView(generic.CreateView):
     #     send_mail(
     #             "EXISTING CUSTOMER",
     #             """Dear Valid user, You try to create a new account with this email, please try again later """,
-    #             'sawdyk123@gmail.com', #from emal (sender)
+    #            
     #             [email], #to email
     #             fail_silently=False,)
     # else:
@@ -77,7 +77,7 @@ def updateProfile(request, id):
                 f"""Your Profile has been successfully updated
                 
                     contact us if you're unaware on this action 
-                    techmoredev@gmail.com, +2348135729554
+                    techmoredev@gmail.com
 
                     NB:This is for a testing.""",
                 'techmoredev@gmail.com', #from emal (sender)
